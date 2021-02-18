@@ -1,6 +1,6 @@
 import { NestFactory, Reflector } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { ClassSerializerInterceptor } from '@nestjs/common';
+import { ClassSerializerInterceptor, ValidationPipe } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule, OpenAPIObject } from '@nestjs/swagger';
 import { ConfigService } from 'nestjs-config';
 
@@ -11,6 +11,7 @@ async function bootstrap() {
   const apiVersion: string = config.get('app.api_version').toString();
 
   // app.useGlobalInterceptors(new ClassSerializerInterceptor(reflector));
+  app.useGlobalPipes(new ValidationPipe({ transform: true }));
 
   const swaggerInfo = config.get('app.swagger');
   const options = new DocumentBuilder()
