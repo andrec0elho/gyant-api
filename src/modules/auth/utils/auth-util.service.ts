@@ -1,6 +1,7 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, BadRequestException } from '@nestjs/common';
 import { ConfigService } from 'nestjs-config';
 import * as jwt from 'jsonwebtoken';
+import { Request } from 'express';
 
 @Injectable()
 export class AuthUtilService {
@@ -16,5 +17,17 @@ export class AuthUtilService {
 
   static decodeToken(token: string): any {
     return jwt.decode(token);
+  }
+
+  static getUserFromToken(request: Request): string {
+    const token = request.headers.authorization;
+
+    const { userId } = AuthUtilService.decodeToken(token);
+
+    if (!userId) {
+      throw new BadRequestException('Invalid token signature');
+    }
+
+    return userId;
   }
 }
