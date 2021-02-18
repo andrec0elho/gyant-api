@@ -32,13 +32,7 @@ export class UserController extends BaseController {
     type: ErrorDto,
   })
   getMyProfile(@Req() request: Request): Promise<MyProfileResponseDto> {
-    const token = request.headers.authorization;
-
-    const { userId } = AuthUtilService.decodeToken(token);
-
-    if (!userId) {
-      throw new BadRequestException('Invalid token signature');
-    }
+    const userId = AuthUtilService.getUserFromToken(request);
 
     return this.userService.getMyProfile(userId);
   }
