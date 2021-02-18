@@ -1,6 +1,6 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 
-export class SearchConditionResponseDto {
+export class SearchCaseResponseDto {
   @ApiProperty()
   _id: string;
 

@@ -1,1 +1,1 @@
-export * from './search-condition-response.dto';
+export * from './search-case-response.dto';

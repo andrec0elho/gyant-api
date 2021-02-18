@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { SearchConditionQueryDto, SearchConditionResponseDto } from './dtos';
+import { SearchCaseQueryDto, SearchCaseResponseDto, UpdateCaseBodyDto } from './dtos';
 import { CaseRepository } from './case.repository';
 import { Case } from './schemas/case.schema';
 
@@ -7,7 +7,7 @@ import { Case } from './schemas/case.schema';
 export class CaseService {
   constructor(private readonly caseRepository: CaseRepository) {}
 
-  async searchConditions(query: SearchConditionQueryDto): Promise<SearchConditionResponseDto[]> {
+  async searchConditions(query: SearchCaseQueryDto): Promise<SearchCaseResponseDto[]> {
     const { evaluated } = query;
     const cases: Case[] = await this.caseRepository.search({ evaluated });
 
@@ -16,7 +16,7 @@ export class CaseService {
     }
 
     return cases.map(
-      ({ _id, description, conditionId, userId, evaluated }): SearchConditionResponseDto => ({
+      ({ _id, description, conditionId, userId, evaluated }): SearchCaseResponseDto => ({
         _id,
         description,
         conditionId,
@@ -24,5 +24,9 @@ export class CaseService {
         evaluated,
       }),
     );
+  }
+
+  async updateCondition(caseId: string, body: UpdateCaseBodyDto): Promise<void> {
+    return undefined;
   }
 }

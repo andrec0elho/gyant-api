@@ -2,7 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { CaseService } from './case.service';
 import { CaseRepository } from './case.repository';
 import { mock } from 'ts-mockito';
-import { SearchConditionQueryDto, SearchConditionResponseDto } from './dtos';
+import { SearchCaseQueryDto, SearchCaseResponseDto } from './dtos';
 import { Case } from './schemas/case.schema';
 
 describe('CaseService', () => {
@@ -27,7 +27,7 @@ describe('CaseService', () => {
   });
 
   describe('searchConditions', () => {
-    const mockQuery: SearchConditionQueryDto = { evaluated: true };
+    const mockQuery: SearchCaseQueryDto = { evaluated: true };
 
     const caseData = {
       evaluated: true,
@@ -57,7 +57,7 @@ describe('CaseService', () => {
     it('should call repository search method and map the response into SearchConditionResponseDto', async () => {
       const caseRepositorySearchSpy = jest.spyOn(mockCaseRepository, 'search').mockResolvedValue(mockDataResponse as Case[]);
 
-      const expectedResponse: SearchConditionResponseDto[] = [
+      const expectedResponse: SearchCaseResponseDto[] = [
         {
           evaluated: true,
           _id: '602e66c0ca179b3e3be06db6',
