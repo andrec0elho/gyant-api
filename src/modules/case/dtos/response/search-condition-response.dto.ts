@@ -14,5 +14,5 @@ export class SearchConditionResponseDto {
   userId: string;
 
   @ApiProperty()
-  evalueated: boolean;
+  evaluated: boolean;
 }

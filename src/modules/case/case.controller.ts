@@ -17,7 +17,7 @@ export class CaseController extends BaseController {
     status: 200,
     type: SearchConditionResponseDto,
   })
-  searchConditions(@Query() query: SearchConditionQueryDto): Promise<SearchConditionResponseDto> {
+  searchConditions(@Query() query: SearchConditionQueryDto): Promise<SearchConditionResponseDto[]> {
     return this.caseService.searchConditions(query);
   }
 }
