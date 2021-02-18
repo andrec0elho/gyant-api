@@ -4,14 +4,11 @@ import { CaseRepository } from './case.repository';
 import { mock } from 'ts-mockito';
 import { SearchConditionQueryDto, SearchConditionResponseDto } from './dtos';
 import { Case } from './schemas/case.schema';
-import { plainToClass } from 'class-transformer';
-import { Document } from 'mongoose';
 
 describe('CaseService', () => {
   let service: CaseService;
 
   const mockCaseRepository = mock(CaseRepository);
-  const mockCase = mock(Case);
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
