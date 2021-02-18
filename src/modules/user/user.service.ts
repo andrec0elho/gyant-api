@@ -27,16 +27,4 @@ export class UserService {
       name: user.name,
     };
   }
-
-  async find(): Promise<any> {
-    const p: User = await this.userRepository.getByEmail('panados@panados.com');
-    console.log(p);
-    return p;
-  }
-
-  async create(doc): Promise<any> {
-    // const result = await new this.userModel(doc).save();
-    // return result.id;
-    return undefined;
-  }
 }

@@ -1,20 +1,35 @@
-import { Controller, Get, Post, Req, UseGuards, BadRequestException } from '@nestjs/common';
+import { Controller, Get, Req, UseGuards, BadRequestException } from '@nestjs/common';
 import { UserService } from './user.service';
 import { Request } from 'express';
 import { AuthGuard } from '../../guards';
 import { AuthUtilService } from '../auth/utils/auth-util.service';
 import { MyProfileResponseDto } from './dtos';
-import { ApiResponse } from '@nestjs/swagger';
+import { ApiResponse, ApiTags, ApiConsumes, ApiProduces } from '@nestjs/swagger';
+import { BaseController } from '../../shared/controllers/base.controller';
+import { ErrorDto } from 'src/shared/dtos/error.dto';
 
 @Controller('user')
-export class UserController {
-  constructor(private readonly userService: UserService) {}
+@ApiTags('user')
+@ApiConsumes('application/json')
+@ApiProduces('application/json')
+export class UserController extends BaseController {
+  constructor(private readonly userService: UserService) {
+    super();
+  }
 
-  @Get('/myprofile')
+  @Get('/my-profile')
   @UseGuards(AuthGuard)
   @ApiResponse({
     status: 200,
     type: MyProfileResponseDto,
+  })
+  @ApiResponse({
+    status: 403,
+    type: ErrorDto,
+  })
+  @ApiResponse({
+    status: 404,
+    type: ErrorDto,
   })
   getMyProfile(@Req() request: Request): Promise<MyProfileResponseDto> {
     const token = request.headers.authorization;
@@ -26,13 +41,5 @@ export class UserController {
     }
 
     return this.userService.getMyProfile(userId);
-  }
-
-  @Post()
-  test2() {
-    return this.userService.create({
-      email: 'panados@panados.com',
-      password: 'ejfkbecndicjkd',
-    });
   }
 }

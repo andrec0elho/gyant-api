@@ -26,12 +26,4 @@ export class AuthService {
   async validatePassword(loginPassword: string, realPassword: string): Promise<boolean> {
     return await bcrypt.compare(loginPassword, realPassword);
   }
-
-  // generateToken(userId: string): string {
-  //   const key: string = this.configService.get('app.jwtSecretKey');
-
-  //   const token: string = jwt.sign({ userId }, key, { expiresIn: '2h' });
-
-  //   return token;
-  // }
 }
