@@ -13,8 +13,8 @@ export class Case extends Document {
   @Prop({ type: mongoose.Schema.Types.ObjectId })
   userId: string;
 
-  @Prop({ required: true })
-  evaluated = false;
+  @Prop({ default: false })
+  evaluated: boolean;
 
   @Prop({ required: true })
   created: Date;
