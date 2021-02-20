@@ -17,10 +17,10 @@ export class CaseController extends BaseController {
   @UseGuards(AuthGuard)
   @ApiResponse({
     status: 200,
-    type: SearchCaseResponseDto,
+    type: [SearchCaseResponseDto],
   })
   searchConditions(@Query() query: SearchCaseQueryDto): Promise<SearchCaseResponseDto[]> {
-    return this.caseService.searchConditions(query);
+    return this.caseService.searchCases(query);
   }
 
   @Patch('/:caseId')
@@ -32,6 +32,6 @@ export class CaseController extends BaseController {
     const { caseId } = params;
     const userId = AuthUtilService.getUserFromToken(request);
 
-    await this.caseService.updateCondition(caseId, userId, body);
+    await this.caseService.updateCase(caseId, userId, body);
   }
 }

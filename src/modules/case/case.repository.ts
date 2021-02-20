@@ -32,7 +32,7 @@ export class CaseRepository {
 
   async updateById(caseId: string, document: ICaseUpdate): Promise<void> {
     try {
-      await this.caseModel.updateOne({ _id: caseId }, document).exec();
+      await this.caseModel.updateOne({ _id: caseId }, { ...document, updatedAt: new Date() }).exec();
     } catch (error) {
       throw new BadRequestException(error);
     }

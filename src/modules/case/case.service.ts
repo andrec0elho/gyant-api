@@ -8,7 +8,7 @@ import { ICaseUpdate } from './interfaces';
 export class CaseService {
   constructor(private readonly caseRepository: CaseRepository) {}
 
-  async searchConditions(query: SearchCaseQueryDto): Promise<SearchCaseResponseDto[]> {
+  async searchCases(query: SearchCaseQueryDto): Promise<SearchCaseResponseDto[]> {
     const { evaluated } = query;
     const cases: Case[] = await this.caseRepository.search({ evaluated });
 
@@ -27,7 +27,7 @@ export class CaseService {
     );
   }
 
-  async updateCondition(caseId: string, userId: string, body: UpdateCaseBodyDto): Promise<void> {
+  async updateCase(caseId: string, userId: string, body: UpdateCaseBodyDto): Promise<void> {
     const caseDocument: Case = await this.caseRepository.getById(caseId);
 
     if (!caseDocument) {
