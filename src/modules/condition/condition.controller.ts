@@ -3,7 +3,7 @@ import { BaseController } from '../../shared/controllers/base.controller';
 import { ConditionService } from './condition.service';
 import { AuthGuard } from '../../guards';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
-import { SearchConditionsResponseDto } from './dtos/response/search-conditions-response.dto';
+import { SearchConditionsResponseDto } from './dtos';
 
 @Controller('condition')
 @ApiTags('condition')
