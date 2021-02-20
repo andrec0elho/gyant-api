@@ -1,7 +1,5 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
-import { ConfigModule } from 'nestjs-config';
+import { ConfigModule, ConfigService } from 'nestjs-config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { MainModule } from './modules/main.module';
 import { APP_INTERCEPTOR } from '@nestjs/core';
@@ -9,13 +7,17 @@ import { EmptyResponseInterceptor } from './interceptors/empty-response.intercep
 
 @Module({
   imports: [
-    MongooseModule.forRoot('mongodb://root:gyantadmin@localhost:27017/gyant?authSource=admin'),
+    MongooseModule.forRootAsync({
+      imports: [ConfigModule],
+      useFactory: async (configService: ConfigService) => ({
+        uri: configService.get('app.mongoUri'),
+      }),
+      inject: [ConfigService],
+    }),
     ConfigModule.resolveRootPath(__dirname).load('config/**/!(*.d).{ts,js}'),
     MainModule,
   ],
-  controllers: [AppController],
   providers: [
-    AppService,
     {
       provide: APP_INTERCEPTOR,
       useClass: EmptyResponseInterceptor,
