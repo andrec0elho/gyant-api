@@ -3,7 +3,10 @@ import { ValidatorConstraintInterface, ValidatorConstraint } from 'class-validat
 @ValidatorConstraint({ name: 'IsBooleanValidator', async: false })
 export class IsBooleanValidator implements ValidatorConstraintInterface {
   validate(value: string) {
-    return value === 'true';
+    if (!value) {
+      return true;
+    }
+    return value === 'true' || value === 'false';
   }
 
   defaultMessage() {
