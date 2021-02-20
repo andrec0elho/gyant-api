@@ -3,11 +3,12 @@ import { BaseController } from '../../shared/controllers/base.controller';
 import { CaseService } from './case.service';
 import { SearchCaseQueryDto, SearchCaseResponseDto, UpdateCaseBodyDto, UpdateCaseParamsDto } from './dtos';
 import { AuthGuard } from '../../guards';
-import { ApiResponse } from '@nestjs/swagger';
+import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { AuthUtilService } from '../auth/utils/auth-util.service';
 import { Request } from 'express';
 
 @Controller('case')
+@ApiTags('case')
 export class CaseController extends BaseController {
   constructor(private readonly caseService: CaseService) {
     super();

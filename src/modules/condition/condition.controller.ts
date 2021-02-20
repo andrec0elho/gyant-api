@@ -2,10 +2,11 @@ import { Controller, Get, UseGuards } from '@nestjs/common';
 import { BaseController } from '../../shared/controllers/base.controller';
 import { ConditionService } from './condition.service';
 import { AuthGuard } from '../../guards';
-import { ApiResponse } from '@nestjs/swagger';
+import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { SearchConditionsResponseDto } from './dtos/response/search-conditions-response.dto';
 
 @Controller('condition')
+@ApiTags('condition')
 export class ConditionController extends BaseController {
   constructor(private readonly conditionService: ConditionService) {
     super();
