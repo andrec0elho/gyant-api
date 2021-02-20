@@ -1,5 +1,5 @@
 import { ApiPropertyOptional } from '@nestjs/swagger';
-import { Validate } from 'class-validator';
+import { Validate, IsBoolean } from 'class-validator';
 import { IsBooleanValidator } from '../../../../shared/validators/is-boolean.validator';
 
 export class UpdateCaseBodyDto {
@@ -7,9 +7,7 @@ export class UpdateCaseBodyDto {
   conditionId?: string;
 
   @ApiPropertyOptional()
-  userId?: string;
-
-  @ApiPropertyOptional()
-  @Validate(IsBooleanValidator)
+  // @Validate(IsBooleanValidator)
+  @IsBoolean()
   evaluated?: boolean;
 }

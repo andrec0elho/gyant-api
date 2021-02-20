@@ -1,7 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { SearchCaseQueryDto, SearchCaseResponseDto, UpdateCaseBodyDto } from './dtos';
 import { CaseRepository } from './case.repository';
 import { Case } from './schemas/case.schema';
+import { ICaseUpdate } from './interfaces';
 
 @Injectable()
 export class CaseService {
@@ -26,7 +27,27 @@ export class CaseService {
     );
   }
 
-  async updateCondition(caseId: string, body: UpdateCaseBodyDto): Promise<void> {
-    return undefined;
+  async updateCondition(caseId: string, userId: string, body: UpdateCaseBodyDto): Promise<void> {
+    const caseDocument: Case = await this.caseRepository.getById(caseId);
+
+    if (!caseDocument) {
+      throw new NotFoundException('Case not found');
+    }
+
+    const { conditionId, evaluated } = body;
+
+    const fieldsToUpdate: ICaseUpdate = {
+      userId,
+    };
+
+    if (conditionId) {
+      fieldsToUpdate.conditionId = conditionId;
+    }
+
+    if (evaluated) {
+      fieldsToUpdate.evaluated = evaluated;
+    }
+
+    await this.caseRepository.updateById(caseId, fieldsToUpdate);
   }
 }
