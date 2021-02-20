@@ -8,8 +8,6 @@ export class AppController {
 
   @Get()
   getHello() {
-    bcrypt.hash('MyPassword123', 10).then(function(hash) {
-      console.log(hash);
-    });
+    return undefined;
   }
 }

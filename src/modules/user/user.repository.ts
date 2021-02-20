@@ -9,9 +9,7 @@ export class UserRepository {
 
   async getByEmail(email: string): Promise<User> {
     try {
-      const p: User = await this.userModel.findOne({ email }).exec();
-      console.log(p);
-      return p;
+      return await this.userModel.findOne({ email }).exec();
     } catch (error) {
       throw new BadRequestException(error);
     }
