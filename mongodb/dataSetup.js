@@ -32,10 +32,6 @@ const case2Description = `Patient  is an 42 year old  male.    Chief Complaint: 
 const case3Description = `Patient  is an 45 year old  female.    Chief Complaint:  Problem    HPI  states that about one month ago she woke up with redness and swelling to her left eye.  She went to see an ophthalmologist who prescribed her naphazoline.  She states that this relieves the redness only temporarily.  She also states that this morning she awoke with more crusting to the left eye.  The eye is not particularly itchy, but seems more irritated today.  She has not had any sick contacts.          Review of Systems   Constitutional: Negative for fever.   Eyes: Positive for discharge and redness. Negative for blurred vision, double vision and photophobia.   Skin: Negative for itching.   Neurological: Positive for headaches.         Objective:     BP 100/69  -Strict ER precautions reviewed with patient should symptoms persist or worsen (specific signs reviewed verbally).  Good communication established and plan agreed upon by patient.`;
 
 MongoClient.connect(url, async function (err, client) {
-  await client.db().createCollection('users');
-  await client.db().createCollection('cases');
-  await client.db().createCollection('conditions');
-
   await client.db().collection('users').insertOne({
     "email": "andre@gyant.com",
     "password": "$2b$10$hCeobmrb71jmeNVPV8aSsOn3ylpfgKyThJNAGac79ylYHVklGmwM6",
@@ -62,4 +58,5 @@ MongoClient.connect(url, async function (err, client) {
   await client.db().collection('conditions').insertMany(conditions);
 
   client.close();
+  console.log("Data loaded successfully");
 });
