@@ -1,4 +1,4 @@
-import { CanActivate, ExecutionContext, Injectable, UnauthorizedException } from '@nestjs/common';
+import { CanActivate, ExecutionContext, Injectable, UnauthorizedException, BadRequestException } from '@nestjs/common';
 import { Observable } from 'rxjs';
 import { Request } from 'express';
 import * as jwt from 'jsonwebtoken';
@@ -23,7 +23,10 @@ export class AuthGuard implements CanActivate {
       jwt.verify(token, key);
       return true;
     } catch (error) {
-      throw new UnauthorizedException('Unauthorized endpoint');
+      if (error.name === 'TokenExpiredError') {
+        throw new UnauthorizedException('Unauthorized endpoint');
+      }
+      throw new BadRequestException('Token invalid signature');
     }
   }
 }
